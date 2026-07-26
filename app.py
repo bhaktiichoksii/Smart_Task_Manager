@@ -1,6 +1,11 @@
 from flask import Flask, render_template
+from database.databse import db
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABSE_URL"] = "sqlite:///task_manager.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
 
 @app.route("/")
 def home():
