@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from database.database import db
 from models.user import User
+from models.task import Task
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -10,6 +11,11 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///task_manager.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+import os
+
+with app.app_context():
+    print("Database Path:")
+    print(os.path.abspath("instance/task_manager.db"))
 
 @app.route("/")
 def home():
@@ -79,23 +85,94 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
 
-        # Find user
+        print("=" * 40)
+        print("Entered Email :", email)
+        print("Entered Password :", password)
+
         user = User.query.filter_by(email=email).first()
 
-        # User not found
-        if not user:
-            flash("User not found. Please register first.", "error")
-            return render_template("login.html")
+        print("\n===== ALL USERS IN DATABASE =====")
 
-        # Check password
-        if check_password_hash(user.password, password):
-            flash(f"Welcome {user.name}! Login Successful.", "success")
-            return redirect(url_for("home"))
+        users = User.query.all()
+
+        for u in users:
+            print(u.id, u.name, u.email)
+
+        print("===============================\n")
+
+        if user:
+            print("User Found:", user.email)
         else:
-            flash("Incorrect password.", "error")
-            return render_template("login.html")
+            print("No user found with email:", email)
+
+        if user:
+            print("Password in DB :", user.password)
+
+            result = check_password_hash(user.password, password)
+
+            print("Password Match :", result)
+
+            if result:
+                session["user_id"] = user.id
+                flash("Login Successful!", "success")
+                return redirect(url_for("dashboard"))
+            else:
+                flash("Incorrect Password!", "error")
+        else:
+            flash("User Not Found!", "error")
 
     return render_template("login.html")
+
+@app.route("/dashboard")
+def dashboard():
+
+    user_id = session.get("user_id")
+
+    if not user_id:
+        flash("Please login first!", "error")
+
+        return redirect(url_for("login"))
+
+    user = User.query.get(user_id)
+
+    return render_template("dashboard.html", user=user)
+
+@app.route("/add_task", methods=["GET", "POST"])
+def add_task():
+
+    if "user_id" not in session:
+        flash("Please login first!", "error")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        description = request.form["description"]
+        status = request.form["status"]
+
+        new_task = Task(
+            title=title,
+            description=description,
+            status=status,
+            user_id=session["user_id"]
+        )
+
+        db.session.add(new_task)
+        db.session.commit()
+
+        flash("Task added successfully!", "success")
+
+        return redirect(url_for("dashboard"))
+    return render_template("add_task.html")
+
+@app.route("/logout")
+def logout():
+
+    session.pop("user_id", None)
+
+    flash("Logged out successfully!", "success")
+
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     with app.app_context():

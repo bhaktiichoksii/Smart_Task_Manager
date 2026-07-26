@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Welcome {{ user.name }} 👋</h1>
+
+
+<h3>Smart Task Manager Dashboard</h3>
+
+<hr>
+
+<h2>Your Tasks</h2>
+
+<a href="/add_task">
+    <button>Add New Task</button>
+</a>
+
+<br><br>
+<p>No tasks available.</p>
+
+<a href="/logout">
+    <button>Logout</button>
+</a>
+
+{% endblock %}
