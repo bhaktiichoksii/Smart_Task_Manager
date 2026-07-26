@@ -1,55 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Smart Task Manager</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+{% block content %}
 
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">
-            Smart Task Manager
-        </div>
+<div class="hero">
 
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="#">Login</a>
-            <a href="#">Register</a>
-        </div>
-    </nav>
+    <h1>Organize Your Daily Tasks</h1>
 
-    <div class="hero">
-        
+    <p>
+        Manage your work, study, and personal tasks in one place.
+    </p>
 
-        <h1>Organize Your Daily Tasks</h1>
+    <button>Get Started</button>
 
-        <p>
-            Manage your work, study, and personal tasks in one place.
-        </p>
+</div>
 
-        <button>Get Started</button>
+<section class="features">
 
+    <h2>Features</h2>
+
+    <div class="feature-card">
+        📋 Task Management
     </div>
-    <section class="features">
 
-        <h2>Features</h2>
+    <div class="feature-card">
+        ⏰ Deadline Reminder
+    </div>
 
-        <div class="feature-card">
-            📋 Task Management
-        </div>
+    <div class="feature-card">
+        📈 Progress Tracking
+    </div>
 
-        <div class="feature-card">
-            ⏰ Deadline Reminder
-        </div>
+</section>
 
-        <div class="feature-card">
-            📈 Progress Tracking
-        </div>
-
-    </section>
-</body>
-</html>
+{% endblock %}
