@@ -18,5 +18,9 @@ def contact():
 def profile():
     return "👤Profile"
 
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
