@@ -22,7 +22,7 @@ def profile():
 def register():
     return render_template("register.html")
 
-@app.rout("/login")
+@app.route("/login")
 def login():
     return render_template("login.html")
 
