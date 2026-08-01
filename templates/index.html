@@ -2,34 +2,143 @@
 
 {% block content %}
 
-<div class="hero">
+<!-- ================= HERO SECTION ================= -->
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fa-solid fa-bolt"></i> Smart Productivity App
+        </div>
+        <h1 class="hero-title">Organize Your Daily Tasks Effortlessly</h1>
+        <p class="hero-description">
+            Smart Task Manager helps you track work, study goals, and personal projects in one clean, simple, and powerful dashboard.
+        </p>
 
-    <h1>Organize Your Daily Tasks</h1>
-
-    <p>
-        Manage your work, study, and personal tasks in one place.
-    </p>
-
-    <button>Get Started</button>
-
-</div>
-
-<section class="features">
-
-    <h2>Features</h2>
-
-    <div class="feature-card">
-        📋 Task Management
+        <div class="hero-actions">
+            {% if session.get("user_id") %}
+                <a href="/dashboard" class="btn btn-primary btn-lg">
+                    <i class="fa-solid fa-gauge-high"></i> Go to Dashboard
+                </a>
+            {% else %}
+                <a href="/register" class="btn btn-primary btn-lg">
+                    <i class="fa-solid fa-rocket"></i> Get Started
+                </a>
+                <a href="/login" class="btn btn-outline btn-lg">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </a>
+            {% endif %}
+        </div>
     </div>
-
-    <div class="feature-card">
-        ⏰ Deadline Reminder
-    </div>
-
-    <div class="feature-card">
-        📈 Progress Tracking
-    </div>
-
 </section>
+
+<!-- ================= FEATURES SECTION ================= -->
+<section class="features-section" id="features">
+    <div class="section-header">
+        <h2 class="section-title">Key Features</h2>
+        <p class="section-subtitle">Everything you need to manage your tasks efficiently</p>
+    </div>
+
+    <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+            <div class="feature-icon icon-blue">
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+            <h3>Task Management</h3>
+            <p>Easily create, view, edit, and organize all your daily tasks with clean interface forms.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+            <div class="feature-icon icon-green">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3>Task Tracking</h3>
+            <p>Track pending and completed status in real-time with color-coded visual badges.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+            <div class="feature-icon icon-purple">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Secure Login</h3>
+            <p>Protected user accounts with Werkzeug password hashing and Flask session security.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+            <div class="feature-icon icon-orange">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+            <h3>Responsive Design</h3>
+            <p>Fully optimized for desktop, tablet, and mobile browsers with responsive sidebars.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= WHY CHOOSE SECTION ================= -->
+<section class="why-choose-section" id="about">
+    <div class="section-header">
+        <h2 class="section-title">Why Choose Smart Task Manager?</h2>
+        <p class="section-subtitle">Built with modern web standards and clean Python Flask architecture</p>
+    </div>
+
+    <div class="why-choose-grid">
+        <div class="why-box">
+            <i class="fa-solid fa-check-double check-icon"></i>
+            <div>
+                <h4>Fast & Lightweight</h4>
+                <p>Powered by Python Flask and SQLite for instantaneous database queries and zero delays.</p>
+            </div>
+        </div>
+
+        <div class="why-box">
+            <i class="fa-solid fa-check-double check-icon"></i>
+            <div>
+                <h4>Clean & User Friendly</h4>
+                <p>Designed with intuitive menus, smooth cards, soft shadows, and clear status indicators.</p>
+            </div>
+        </div>
+
+        <div class="why-box">
+            <i class="fa-solid fa-check-double check-icon"></i>
+            <div>
+                <h4>Complete & Modular</h4>
+                <p>Follows standard MVC principles, clean folder structure, database models, and CRUD functionality.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3><i class="fa-solid fa-square-check"></i> Smart Task Manager</h3>
+            <p>A simple and professional task management web application built with Flask, SQLAlchemy, SQLite, HTML, CSS, and JavaScript.</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                <li><a href="#features"><i class="fa-solid fa-chevron-right"></i> Features</a></li>
+                <li><a href="#about"><i class="fa-solid fa-chevron-right"></i> About</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Contact Info</h4>
+            <ul class="contact-info">
+                <li><i class="fa-solid fa-envelope"></i> support@smarttaskmanager.com</li>
+                <li><i class="fa-solid fa-clock"></i> Available 24/7 Online</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Smart Task Manager | All Rights Reserved</p>
+    </div>
+</footer>
 
 {% endblock %}

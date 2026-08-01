@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-user-gear sidebar-icon"></i>
+            <span class="sidebar-user-name">{{ user.name }}</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="/profile" class="sidebar-link active">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a href="/dashboard" class="sidebar-link">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a href="/add_task" class="sidebar-link">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add Task</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a href="/dashboard#tasks" class="sidebar-link">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>My Tasks</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item sidebar-logout">
+                <a href="/logout" class="sidebar-link text-danger">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Sidebar Backdrop overlay for mobile screen sizes -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ================= PROFILE CONTENT ================= -->
+    <main class="dashboard-main">
+        <div class="profile-container">
+            <!-- Profile Header Card -->
+            <div class="profile-card">
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+
+                <div class="profile-info">
+                    <h1 class="profile-name">{{ user.name }}</h1>
+                    <p class="profile-email">
+                        <i class="fa-solid fa-envelope"></i> {{ user.email }}
+                    </p>
+                    <div class="profile-badge">
+                        <i class="fa-solid fa-shield-check"></i> Registered User Account
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <a href="/dashboard" class="btn btn-primary">
+                        <i class="fa-solid fa-table-columns"></i> View Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Task Statistics Grid -->
+            <div class="profile-stats-card">
+                <h2 class="stats-title"><i class="fa-solid fa-chart-column"></i> Task Statistics Summary</h2>
+                
+                <div class="profile-stats-grid">
+                    <div class="p-stat-box p-stat-total">
+                        <div class="p-stat-icon"><i class="fa-solid fa-list-ul"></i></div>
+                        <div class="p-stat-number">{{ total_tasks }}</div>
+                        <div class="p-stat-label">Total Tasks</div>
+                    </div>
+
+                    <div class="p-stat-box p-stat-pending">
+                        <div class="p-stat-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="p-stat-number">{{ pending_tasks }}</div>
+                        <div class="p-stat-label">Pending Tasks</div>
+                    </div>
+
+                    <div class="p-stat-box p-stat-completed">
+                        <div class="p-stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="p-stat-number">{{ completed_tasks }}</div>
+                        <div class="p-stat-label">Completed Tasks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+{% endblock %}

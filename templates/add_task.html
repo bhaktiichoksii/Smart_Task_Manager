@@ -2,29 +2,64 @@
 
 {% block content %}
 
-<h1>Add Task</h1>
+<div class="form-page-wrapper">
+    <div class="form-card">
+        <div class="form-header">
+            <div class="form-header-icon">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <h2>Add New Task</h2>
+            <p>Create a new task to organize your daily schedule</p>
+        </div>
 
-<form method="POST">
+        <form method="POST" action="/add_task" class="task-form">
+            <!-- Task Title Field -->
+            <div class="form-group">
+                <label for="title">
+                    <i class="fa-solid fa-heading"></i> Task Title <span class="required-star">*</span>
+                </label>
+                <input type="text" 
+                       id="title" 
+                       name="title" 
+                       class="form-control" 
+                       placeholder="Enter task title (e.g. Prepare Viva Presentation)" 
+                       required>
+            </div>
 
-    <label>Title</label><br>
-    <input type="text" name="title"><br><br>
+            <!-- Task Description Field -->
+            <div class="form-group">
+                <label for="description">
+                    <i class="fa-solid fa-align-left"></i> Description
+                </label>
+                <textarea id="description" 
+                          name="description" 
+                          class="form-control textarea-control" 
+                          rows="4" 
+                          placeholder="Enter task details or notes..."></textarea>
+            </div>
 
-    <label>Description</label><br>
-    <textarea name="description"></textarea><br><br>
+            <!-- Task Status Field -->
+            <div class="form-group">
+                <label for="status">
+                    <i class="fa-solid fa-list-check"></i> Status
+                </label>
+                <select id="status" name="status" class="form-control select-control">
+                    <option value="Pending" selected>Pending</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
 
-    <label>Status</label><br>
-
-    <select name="status">
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-    </select>
-
-    <br><br>
-
-    <button type="submit">
-        Add Task
-    </button>
-
-</form>
+            <!-- Form Action Buttons -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Task
+                </button>
+                <a href="/dashboard" class="btn btn-outline">
+                    <i class="fa-solid fa-xmark"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

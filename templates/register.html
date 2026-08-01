@@ -1,29 +1,106 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+<div class="auth-page-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon icon-register">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <h2>Create an Account</h2>
+            <p>Join Smart Task Manager to organize your work</p>
+        </div>
 
-    <h1>Register</h1>
+        <form method="POST" action="/register" class="auth-form" onsubmit="return validateRegisterForm();">
+            <!-- Full Name Field -->
+            <div class="form-group">
+                <label for="name">
+                    <i class="fa-solid fa-user"></i> Full Name <span class="required-star">*</span>
+                </label>
+                <input type="text" 
+                       id="name" 
+                       name="name" 
+                       class="form-control" 
+                       placeholder="Enter your full name" 
+                       value="{{ request.form.get('name', '') }}" 
+                       required>
+            </div>
 
-    <form method="POST">
-        <label>Full Name</label><br>
-        <input type="text" name="name" value="{{ request.form.get('name', '') }}"><br><br>
+            <!-- Email Address Field -->
+            <div class="form-group">
+                <label for="email">
+                    <i class="fa-solid fa-envelope"></i> Email Address <span class="required-star">*</span>
+                </label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       class="form-control" 
+                       placeholder="name@example.com" 
+                       value="{{ request.form.get('email', '') }}" 
+                       required>
+            </div>
 
-        <label>Email</label><br>
-        <input type="email" name="email" value="{{ request.form.get('email', '') }}"><br><br>
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="reg-password">
+                    <i class="fa-solid fa-lock"></i> Password <span class="required-star">*</span>
+                </label>
+                <div class="input-password-wrapper">
+                    <input type="password" 
+                           id="reg-password" 
+                           name="password" 
+                           class="form-control" 
+                           placeholder="Create a strong password" 
+                           onkeyup="checkPasswordStrength(this.value);" 
+                           required>
+                    <button type="button" 
+                            class="password-toggle-btn" 
+                            onclick="togglePasswordVisibility('reg-password', 'reg-eye-1')" 
+                            aria-label="Toggle Password Visibility">
+                        <i class="fa-solid fa-eye" id="reg-eye-1"></i>
+                    </button>
+                </div>
+                <!-- Password Strength Meter Bar -->
+                <div class="strength-meter-container">
+                    <div id="strength-bar" class="strength-bar"></div>
+                </div>
+                <span id="strength-text" class="strength-text">Password strength: Empty</span>
+            </div>
 
-        <label>Password</label><br>
-        <input type="password" name="password"><br><br>
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="reg-confirm-password">
+                    <i class="fa-solid fa-shield-cat"></i> Confirm Password <span class="required-star">*</span>
+                </label>
+                <div class="input-password-wrapper">
+                    <input type="password" 
+                           id="reg-confirm-password" 
+                           name="confirm_password" 
+                           class="form-control" 
+                           placeholder="Re-enter your password" 
+                           required>
+                    <button type="button" 
+                            class="password-toggle-btn" 
+                            onclick="togglePasswordVisibility('reg-confirm-password', 'reg-eye-2')" 
+                            aria-label="Toggle Password Visibility">
+                        <i class="fa-solid fa-eye" id="reg-eye-2"></i>
+                    </button>
+                </div>
+                <span id="match-error" class="validation-error-text"></span>
+            </div>
 
-        <label>Confirm Password</label><br>
-        <input type="password" name="confirm_password"><br><br>
+            <!-- Submit Register Button -->
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fa-solid fa-user-plus"></i> Register
+            </button>
 
-        <button type="submit" >Register</button>
-    </form>
+            <!-- Login Link -->
+            <div class="auth-footer-link">
+                <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
