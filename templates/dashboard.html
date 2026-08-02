@@ -3,73 +3,67 @@
 {% block content %}
 
 <div class="dashboard-layout">
-    <!-- ================= SIDEBAR ================= -->
+    <!-- ================= COLLAPSIBLE SIDEBAR ================= -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <i class="fa-solid fa-user-gear sidebar-icon"></i>
-            <span class="sidebar-user-name">{{ user.name }}</span>
+            <i class="fa-solid fa-user-circle sidebar-icon"></i>
+            <div>
+                <p class="sidebar-user-name">{{ user.name }}</p>
+                <small style="color: #94a3b8; font-size: 0.75rem;">User Account</small>
+            </div>
         </div>
 
         <ul class="sidebar-menu">
-            <li class="sidebar-item">
+            <li>
                 <a href="/profile" class="sidebar-link {% if request.path == '/profile' %}active{% endif %}">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Profile</span>
+                    <i class="fa-solid fa-user"></i> My Profile
                 </a>
             </li>
-
-            <li class="sidebar-item">
+            <li>
                 <a href="/dashboard" class="sidebar-link {% if request.path == '/dashboard' %}active{% endif %}">
-                    <i class="fa-solid fa-table-columns"></i>
-                    <span>Dashboard</span>
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
                 </a>
             </li>
-
-            <li class="sidebar-item">
-                <a href="/add_task" class="sidebar-link">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Add Task</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
+            <li>
                 <a href="#tasks" class="sidebar-link">
-                    <i class="fa-solid fa-list-check"></i>
-                    <span>My Tasks</span>
+                    <i class="fa-solid fa-list-check"></i> My Tasks
                 </a>
             </li>
-
-            <li class="sidebar-item sidebar-logout">
+            <li>
+                <a href="/add_task" class="sidebar-link">
+                    <i class="fa-solid fa-plus-circle"></i> Add New Task
+                </a>
+            </li>
+            <li class="sidebar-logout">
                 <a href="/logout" class="sidebar-link text-danger">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
                 </a>
             </li>
         </ul>
     </aside>
 
-    <!-- Sidebar Backdrop overlay for mobile screen sizes -->
+    <!-- Sidebar Backdrop Overlay for Mobile -->
     <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
     <!-- ================= MAIN DASHBOARD CONTENT ================= -->
     <main class="dashboard-main">
-        <!-- Welcome Header -->
+        <!-- Header Row -->
         <div class="dashboard-header">
             <div>
                 <h1 class="welcome-title">Welcome, {{ user.name }} 👋</h1>
-                <p class="welcome-subtitle">Here is an overview of your tasks and productivity statistics.</p>
+                <p class="welcome-subtitle">Here is your daily task overview and activity stats.</p>
             </div>
             <a href="/add_task" class="btn btn-primary">
                 <i class="fa-solid fa-plus"></i> Add New Task
             </a>
         </div>
 
-        <!-- Dashboard Stat Cards -->
+        <!-- Stat Cards Grid -->
         <div class="dashboard-cards">
             <!-- Total Tasks Card -->
             <div class="stat-card card-total">
                 <div class="stat-icon">
-                    <i class="fa-solid fa-layer-group"></i>
+                    <i class="fa-solid fa-list-ul"></i>
                 </div>
                 <div class="stat-info">
                     <h3>{{ tasks | length }}</h3>
@@ -128,6 +122,7 @@
                 <table class="task-table">
                     <thead>
                         <tr>
+                            <th style="width: 50px;">#</th>
                             <th>Task Title</th>
                             <th>Description</th>
                             <th>Status</th>
@@ -138,6 +133,9 @@
                     <tbody>
                         {% for task in tasks %}
                             <tr>
+                                <td style="font-weight: 600; color: #64748b;">
+                                    {{ loop.index }}
+                                </td>
                                 <td class="task-title-cell">
                                     <strong>{{ task.title }}</strong>
                                 </td>
@@ -176,10 +174,10 @@
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="5" class="empty-table-cell">
+                                <td colspan="6" class="empty-table-cell">
                                     <div class="empty-state">
                                         <i class="fa-solid fa-clipboard-list empty-icon"></i>
-                                        <p>No tasks found. Click "Add New Task" to create your first task!</p>
+                                        <p>No tasks found. Click <strong>"+ Add New Task"</strong> to create your first task!</p>
                                     </div>
                                 </td>
                             </tr>

@@ -2,7 +2,7 @@
 
 A modern, responsive, full-stack Web Application built using **Python, Flask, SQLAlchemy, SQLite, HTML5, CSS3, JavaScript, and Jinja2 Templates**.
 
-Designed as a professional **Admin Dashboard UI** suitable for **MCA Final Year Projects**, project viva presentations, and developer portfolios.
+Designed as a professional **Admin Dashboard UI**.
 
 ---
 
