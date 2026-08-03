@@ -1,12 +1,13 @@
 # Smart Task Manager 📋
 
-A modern, responsive, full-stack Web Application built using **Python, Flask, SQLAlchemy, SQLite, HTML5, CSS3, JavaScript, and Jinja2 Templates**.
+A simple Task Management Web Application developed using **Python, Flask, SQLAlchemy, SQLite, HTML5, CSS3, JavaScript, and Jinja2 Templates**.
 
-Designed as a professional **Admin Dashboard UI**.
+This project was developed as part of my MCA learning to understand Flask, user authentication, database connectivity, and CRUD operations.
 
 ---
 
 ## 📌 Table of Contents
+
 - [Project Overview](#-project-overview)
 - [Key Features](#-key-features)
 - [Technology Stack](#-technology-stack)
@@ -15,174 +16,233 @@ Designed as a professional **Admin Dashboard UI**.
 - [Installation & Setup Guide](#-installation--setup-guide)
 - [How to Run the Application](#-how-to-run-the-application)
 - [Project Workflow](#-project-workflow)
-  - [Authentication Flow](#authentication-flow)
-  - [Task CRUD Flow](#task-crud-flow)
-- [Screenshots & UI Showcase](#-screenshots--ui-showcase)
 - [Future Enhancements](#-future-enhancements)
 - [Author & License](#-author--license)
 
 ---
 
-## 🚀 Project Overview
+# 🚀 Project Overview
 
-**Smart Task Manager** provides a simple, clean, and intuitive task management interface where registered users can record, monitor, update, and manage daily goals. The application enforces secure authentication, session management, and color-coded status badges for pending and completed tasks.
+Smart Task Manager is a web application where users can manage their daily tasks.
 
----
+A registered user can create an account, log in securely, and perform basic task management operations such as adding, viewing, editing, and deleting tasks.
 
-## ✨ Key Features
-
-- **Responsive Dark Blue Navbar**: Branding logo, page links (Home, Dashboard, Login, Register, Profile, Logout), and active page highlighting.
-- **Collapsible Sidebar**: Slide-in/out left sidebar toggling via hamburger icon, with user profile shortcut, task list section, and logout button.
-- **Interactive Dashboard**:
-  - **Summary Stat Cards**: Real-time counts for Total Tasks, Pending Tasks, Completed Tasks, and Completion Rate %.
-  - **Modern Task Table**: Columns for Task Title, Description, Status (Orange badge for Pending, Green badge for Completed), Created Date, and Action buttons.
-  - **Confirmation Dialogs**: Deletion confirmation prompt (`"Are you sure you want to delete this task?"`) before removing task records.
-- **User Profile Page**: Detailed view displaying user name, email, avatar icon, and a task statistics breakdown grid.
-- **Secure Authentication**: Password hashing using `werkzeug.security` (`generate_password_hash`, `check_password_hash`) and session-based route protection.
-- **Show/Hide Password Toggle**: Eye icon button in Login and Register forms to toggle password text visibility.
-- **Password Strength Indicator**: Real-time client-side password strength meter (Weak, Medium, Strong).
-- **Single-Time Flash Alerts**: Auto-dismissing green, red, and yellow notification banners.
+The main purpose of this project is to learn Flask development, database integration, authentication, session management, and CRUD operations.
 
 ---
 
-## 🛠️ Technology Stack
+# ✨ Key Features
+
+- User Registration
+- Secure User Login
+- Password Hashing using Werkzeug
+- Session Management
+- Dashboard for Logged-in Users
+- Add New Task
+- View All Tasks
+- Edit Existing Task
+- Delete Task
+- Flash Messages for Success and Error
+- Responsive Navigation Bar
+- Sidebar Navigation
+- SQLite Database Integration
+
+---
+
+# 🛠️ Technology Stack
 
 | Layer | Technology |
 | :--- | :--- |
-| **Backend Framework** | Python 3 (Flask Framework) |
-| **Database ORM** | SQLAlchemy |
-| **Database Engine** | SQLite 3 |
-| **Templating Engine** | Jinja2 |
-| **Frontend UI** | HTML5, Modern CSS3 (Flexbox & Grid), JavaScript (Vanilla JS) |
-| **Typography & Icons**| Google Fonts (Inter), Font Awesome 6 |
+| Backend | Python, Flask |
+| Database | SQLite |
+| ORM | SQLAlchemy |
+| Frontend | HTML5, CSS3, JavaScript |
+| Template Engine | Jinja2 |
+| Version Control | Git & GitHub |
+| Deployment | Render |
 
 ---
 
-## 📁 Folder Structure
+# 📁 Folder Structure
 
 ```text
 Smart_Task_Manager/
 │
-├── app.py                  # Main Flask Application Routes & Controller
-├── config.py               # Configuration Settings
-├── requirements.txt        # Python Dependencies List
-├── README.md               # Project Documentation
+├── app.py                  # Main Flask Application
+├── requirements.txt        # Project Dependencies
+├── Procfile               # Render Deployment File
+├── README.md              # Project Documentation
 │
 ├── database/
-│   └── database.py         # SQLAlchemy Database Connection Instance
+│   └── database.py        # Database Configuration
 │
 ├── models/
-│   ├── user.py             # User SQLAlchemy Database Model
-│   └── task.py             # Task SQLAlchemy Database Model
+│   ├── user.py            # User Model
+│   └── task.py            # Task Model
 │
 ├── static/
 │   ├── css/
-│   │   └── style.css       # Complete Custom CSS Design System
+│   │   └── style.css
 │   ├── js/
-│   │   └── script.js      # Sidebar Toggle, Password Hide/Show, JS Validation
-│   └── images/             # Static Images & Assets
+│   │   └── script.js
+│   └── images/
 │
 ├── templates/
-│   ├── base.html           # Master Layout Template (Navbar, Flash Alerts, Footer)
-│   ├── index.html          # Public Landing Home Page
-│   ├── login.html          # Login Form Template
-│   ├── register.html       # User Registration Template
-│   ├── dashboard.html      # Admin Dashboard & Task Table
-│   ├── profile.html        # User Profile & Stats View
-│   ├── add_task.html       # Add Task Form Template
-│   └── edit_task.html      # Edit Task Form Template
+│   ├── base.html
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── add_task.html
+│   ├── edit_task.html
+│   └── profile.html
 │
 └── instance/
-    └── task_manager.db     # SQLite Database File
+    └── task_manager.db
 ```
 
 ---
 
-## 🗄️ Database Schema
+# 🗄️ Database Schema
 
-### 1. `User` Model (`models/user.py`)
-- `id`: Integer (Primary Key, Auto-increment)
-- `name`: String(100), Required
-- `email`: String(100), Unique, Required
-- `password`: String(255), Hashed, Required
+## User Table
 
-### 2. `Task` Model (`models/task.py`)
-- `id`: Integer (Primary Key, Auto-increment)
-- `title`: String(200), Required
-- `description`: Text
-- `status`: String(20), Default: `"Pending"` (Options: `"Pending"`, `"Completed"`)
-- `created_at`: DateTime, Default: `datetime.utcnow`
-- `user_id`: Integer, Foreign Key -> `user.id`
+| Field | Description |
+|-------|-------------|
+| id | Primary Key |
+| name | User Name |
+| email | User Email |
+| password | Hashed Password |
 
 ---
 
-## ⚙️ Installation & Setup Guide
+## Task Table
 
-### 1. Prerequisites
-- Python 3.8 or higher installed on your system.
-- Git installed.
+| Field | Description |
+|-------|-------------|
+| id | Primary Key |
+| title | Task Title |
+| description | Task Description |
+| status | Pending / Completed |
+| user_id | Linked User ID |
 
-### 2. Clone Repository or Open Project Folder
+---
+
+# ⚙️ Installation & Setup Guide
+
+## Prerequisites
+
+- Python 3.8 or above
+- Git
+- VS Code (Recommended)
+
+## Clone Repository
+
 ```bash
-cd d:\Projects\Smart_Task_Manager
+git clone https://github.com/bhaktiichoksii/Smart_Task_Manager.git
 ```
 
-### 3. Create a Virtual Environment
+## Open Project
+
 ```bash
-# Windows
+cd Smart_Task_Manager
+```
+
+## Create Virtual Environment
+
+```bash
 python -m venv .venv
-
-# Activate Virtual Environment (Windows PowerShell)
-.venv\Scripts\Activate.ps1
 ```
 
-### 4. Install Dependencies
+## Activate Virtual Environment
+
+```bash
+.venv\Scripts\activate
+```
+
+## Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🚀 How to Run the Application
+# 🚀 How to Run the Application
 
-Execute `app.py` directly:
 ```bash
 python app.py
 ```
 
-Open your browser and navigate to:
-```text
-http://127.0.0.1:5000/
+Open:
+
+```
+http://127.0.0.1:5000
 ```
 
 ---
 
-## 🔄 Project Workflow
+# 🔄 Project Workflow
 
-### Authentication Flow
-1. User visits `/register` -> Enters Name, Email, Password -> Password is hashed -> Record stored in SQLite -> Redirected to `/login`.
-2. User enters credentials at `/login` -> Hash is checked -> User ID stored in `session["user_id"]` -> Access granted to `/dashboard`.
-3. User clicks `/logout` -> Session cleared -> Flash message displayed -> Redirected to `/login`.
+## User Registration
 
-### Task CRUD Flow
-- **Create**: Click "+ Add New Task" -> Fill Title, Description, Status -> Task saved to DB.
-- **Read**: Dashboard fetches user's tasks -> Displays total counters, pending counts, completed counts, and task table.
-- **Update**: Click "Edit" icon -> Pre-filled form loads -> Submit changes -> Task record updated.
-- **Delete**: Click "Delete" icon -> Confirmation prompt -> Task record deleted.
+- User enters Name, Email and Password.
+- Password is converted into a hashed password.
+- User information is stored in SQLite database.
 
 ---
 
-## 🔮 Future Enhancements
+## User Login
 
-- Due Date & Priority Tagging (High, Medium, Low).
-- Search & Filter bar by Status or Title keyword.
-- Export task history to PDF / CSV report.
-- Dark mode toggle option.
+- User enters Email and Password.
+- Password is verified.
+- Session is created after successful login.
+- User is redirected to Dashboard.
 
 ---
 
-## 👤 Author & License
+## Task Management
 
-- **Developer**: Bhakti Choksi
-- **Degree**: MCA (Master of Computer Applications)
-- **License**: MIT License
+The logged-in user can:
+
+- Add New Task
+- View All Tasks
+- Edit Existing Task
+- Delete Task
+- Logout
+
+Each user can only manage their own tasks.
+
+---
+
+# 🔮 Future Enhancements
+
+Some features that can be added in future:
+
+- Task Priority
+- Due Date
+- Search Tasks
+- Filter Tasks
+- User Profile Update
+- Change Password
+- Forgot Password
+- PostgreSQL Database
+- Email Verification
+
+---
+
+# 👤 Author & License
+
+**Developer:** Bhakti Choksi
+
+**Course:** Master of Computer Applications (MCA)
+
+**Project Type:** Academic Learning Project
+
+**GitHub Repository:**
+https://github.com/bhaktiichoksii/Smart_Task_Manager
+
+**Live Project:**
+https://smart-task-manager-7tmj.onrender.com
+
+**License:** This project is created for learning and educational purposes.
